@@ -6,7 +6,7 @@ $(function() {
 		_create: function() {
 			// Create the structure
 			this.element.addClass("view-user-ref");
-			$(this.element).append($('<h3>users:</h3>'));
+			$(this.element).append($('<h3>Users:</h3>'));
 			var mainDiv = $('<div class="viewusersDiv"></div>');
 			$(this.element).append(mainDiv);
 			$(".viewusersDiv").jsGrid({
@@ -65,8 +65,16 @@ $(function() {
 		        	{ name: "name", type: "text", width: 100, validate: "required", title: "Name"},
 		            { name: "username", type: "text", title: "Username", width: 100 },
 		            { name: "activityStyle", type: "text", width: 100, title: "Activity Style"},
-		            { name: "birthDate", type: "text", width: 100, title: "BirthDate"},
-		            { name: "email", type: "text", width: 100, title: "Email"},
+		            { name: "birthDate", type: "text", width: 100, title: "BirthDate",
+		            	itemTemplate: function(value, item) {
+		            		console.log("value  " + value);
+		            		var date = (new Date(value*1)).toLocaleString();
+		            		
+		            		console.log("date  " + date);
+		            		return $("<span>" + date + "</span>");
+		            	}
+	            	},
+		            { name: "email", type: "text", width: 170, title: "Email"},
 		            { name: "gender", type: "text", title: "Gender"},
 		            { name: "height", type: "text", title: "Height"},
 		            { name: "weight", type: "text", title: "Weight"}
