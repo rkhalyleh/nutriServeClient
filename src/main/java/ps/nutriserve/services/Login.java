@@ -34,7 +34,13 @@ public class Login {
 	
 	final static Logger logger = Logger.getLogger(Login.class);
 
-	
+
+	/**
+	 * 
+	 * @param user
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/auth" ,
 			method = RequestMethod.POST,  
 			consumes = "application/json",
@@ -56,6 +62,13 @@ public class Login {
 		return new ResponseEntity<User>(user,HttpStatus.NOT_ACCEPTABLE);
 	}
 	
+	/**
+	 * 
+	 * @param username
+	 * @param request
+	 * @return
+	 * @throws DAOException
+	 */
 	@RequestMapping(value = "/authenticateUser/{username}" ,
 			method = RequestMethod.GET,  
 			consumes = "application/json",
@@ -80,7 +93,6 @@ public class Login {
 	@RequestMapping("/logout")
 	public String logoutPage (Model model, HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("xxxxxx");
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") != null) {
 			session.invalidate();
@@ -89,31 +101,9 @@ public class Login {
 		response.setHeader("Cache-Control","no-store");
 		response.setDateHeader("Expires", 0);
 		response.setHeader("Pragma","no-cache");
-//		String userName = (String) session.getAttribute("User");
-//		System.out.println("-----------------------------------------");
-//		if (null == userName) {
-//		   RequestDispatcher rd = request.getRequestDispatcher("../login.html");
-//		   rd.forward(request, response);
-//		}
-		//perform other required operation
-				String URL = request.getContextPath() + "/login.html";
-				response.setStatus(HttpStatus.OK.value());
-				response.sendRedirect(URL);
+		String URL = request.getContextPath() + "/login.html";
+		response.setStatus(HttpStatus.OK.value());
+		response.sendRedirect(URL);
 	    return "redirect:/login.html";
 	}
-//	
-//	public void executeSQL(String sql) {
-//		logger.debug("Started create Users table -----sqllllllllllll--------exe---------------1---------");
-//		try {
-//			DBManager.initDatabase("invDB", "admin", "admin", false);
-//			DBManager.executeUpdate(sql);
-//			DBManager.logSql();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-
 }

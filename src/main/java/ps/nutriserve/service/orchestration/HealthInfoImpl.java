@@ -23,6 +23,10 @@ import ps.nutriserve.model.Recipe;
 public class HealthInfoImpl implements HealthInfo{
 
 	final static Logger logger = Logger.getLogger(HealthInfoImpl.class);
+	
+	/**
+	 * URIs for the exernal services to call
+	 */
 	public static String BASE_URL = "http://bzu-nutriserve.appspot.com";
 	public static String HEALTH_STATUS_URL = "/healthstatus?userid={id}";
 	public static String BMI_URL = "/bmi?weight={weight}&length={height}";
