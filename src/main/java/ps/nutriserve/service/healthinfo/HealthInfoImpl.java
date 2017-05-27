@@ -18,6 +18,10 @@ import ps.nutriserve.model.Bmi;
 public class HealthInfoImpl implements HealthInfoService {
 
 	final static Logger logger = Logger.getLogger(HealthInfoImpl.class);
+	
+	/*
+	 *  External service URI
+	 */
 	public static String URL = "http://bzu-nutriserve.appspot.com/bmi";
 	
 	/**
@@ -30,6 +34,7 @@ public class HealthInfoImpl implements HealthInfoService {
 	public Bmi getBmi(int weight, int length) {
 		RestTemplate restTemplate = new RestTemplate();
 		
+		// Call the external service
 		ResponseEntity<Bmi> rateResponse =
 		        restTemplate.exchange(URL, HttpMethod.GET, 
 		        		null, new ParameterizedTypeReference<Bmi>() {
