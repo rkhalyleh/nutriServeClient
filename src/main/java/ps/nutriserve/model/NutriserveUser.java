@@ -8,6 +8,7 @@ package ps.nutriserve.model;
  * 
  */
 public class NutriserveUser {
+	
 	  private String activityStyle;
 	  private String birthDate;
 	  private String email;
@@ -17,6 +18,10 @@ public class NutriserveUser {
 	  private String name;
 	  private String userName;
 	  private int weight;
+	  
+	  public NutriserveUser() {
+	  }
+	  
 	public String getActivityStyle() {
 		return activityStyle;
 	}

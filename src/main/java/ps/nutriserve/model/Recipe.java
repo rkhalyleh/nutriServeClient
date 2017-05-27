@@ -17,6 +17,10 @@ public class Recipe {
 	private long calories;
 	private String nextRecipeApi;
 	private String previousRecipeApi;
+	
+	public Recipe() {
+	}
+	
 	public long getId() {
 		return id;
 	}

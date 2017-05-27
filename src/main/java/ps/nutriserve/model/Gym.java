@@ -16,6 +16,10 @@ public class Gym {
 	private int rating;
 	private String nextGymApi;
 	private String previousGymApi;
+	
+	public Gym() {
+	}
+	
 	public int getId() {
 		return id;
 	}

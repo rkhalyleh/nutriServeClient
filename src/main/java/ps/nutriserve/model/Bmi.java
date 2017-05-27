@@ -11,6 +11,10 @@ public class Bmi {
 	private int weight;
 	private int length;
 	private float bmi;
+	
+	public Bmi() {
+	}
+	
 	public int getWeight() {
 		return weight;
 	}

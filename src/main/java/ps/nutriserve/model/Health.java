@@ -23,7 +23,6 @@ public class Health implements Serializable{
 	private String healthStatus;
 
 	public Health() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public String getBmi() {
