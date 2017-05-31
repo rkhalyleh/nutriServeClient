@@ -51,7 +51,7 @@ public class HealthInfoImpl implements HealthInfo{
 	 * @param height
 	 */
 	@Override
-	public Bmi getBmi(int weight, int height) {
+	public Bmi getBmi(int weight, float height) {
 		 RestTemplate restTemplate = new RestTemplate();
 		 
 		 Bmi bmi = restTemplate.getForObject(BASE_URL + BMI_URL, Bmi.class, weight, height);

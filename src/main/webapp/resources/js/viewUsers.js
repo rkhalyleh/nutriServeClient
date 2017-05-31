@@ -61,9 +61,9 @@ $(function() {
 		        },
 
 		        fields: [
-		        	{ name: "id", type: "text", width: 50, validate: "required", title: "Id"},
+		        	{ name: "id", type: "text", width: 150, validate: "required", title: "Id"},
 		        	{ name: "name", type: "text", width: 100, validate: "required", title: "Name"},
-		            { name: "username", type: "text", title: "Username", width: 100 },
+		            { name: "userName", type: "text", title: "Username", width: 100 },
 		            { name: "activityStyle", type: "text", width: 100, title: "Activity Style"},
 		            { name: "birthDate", type: "text", width: 100, title: "BirthDate",
 		            	itemTemplate: function(value, item) {

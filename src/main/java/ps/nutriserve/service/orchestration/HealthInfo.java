@@ -18,7 +18,7 @@ public interface HealthInfo {
 	
 	public Health getEmployeeHealthInfo(String id);
 	
-	public Bmi getBmi(int weight, int height);
+	public Bmi getBmi(int weight, float height);
 	
 	public Recipe getRecipe(int id);
 	
