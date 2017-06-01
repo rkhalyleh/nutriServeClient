@@ -22,6 +22,10 @@ public class User {
 
 	private String name;
 	
+	private Recipe recipe;
+	
+	private Health health;
+	
 	public User() {
 	}
 	
@@ -105,5 +109,21 @@ public class User {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
+	}
+
+	public Health getHealth() {
+		return health;
+	}
+
+	public void setHealth(Health health) {
+		this.health = health;
 	}
 }

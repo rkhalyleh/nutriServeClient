@@ -80,6 +80,34 @@ $(document).ready(function(){
 			var cancelBtn = $("<input type='button' class='btn-primary cancel-button-ref' value='Cancel'/>");
 			
 			saveBtn.click(function(){
+				if ($(".view-userhealthinfo-ref").length > 0){
+					var data = $(".main-content").userhealthinfo("getData");
+					$.ajax({
+						url: "healthInfo/userHealthInfo/"+data.userId,
+					    dataType: 'json',
+					    headers: { 
+					        'Accept': 'application/json', 
+					        'Content-Type': 'application/json' 
+					    },
+						success: function(data) {
+					    	$('.post-result').html("User Health Info: "+ data.bmi);
+					    	$('.post-result').removeClass('wrong-entry');
+					    	$('.post-result').addClass('right-entry');
+							$('.post-result').fadeIn(500);
+							setTimeout( "$('.post-result').fadeOut(1500);", 30000);
+
+						},
+						error: function (XMLHttpRequest, textStatus, errorThrown) {
+					    	$('.post-result').html('Error in getting bmi!');
+					    	$('.post-result').removeClass('right-entry');
+					    	$('.post-result').addClass('wrong-entry');
+							$('.post-result').fadeIn(500);
+							setTimeout( "$('.post-result').fadeOut(1500);", 15000);
+						},
+						async:false
+					});
+
+				}
 				if ($(".new-bmi-ref").length > 0){
 					var data = $(".main-content").showbmi("getData");
 					$.ajax({
@@ -175,6 +203,10 @@ $(document).ready(function(){
 		if ($(".view-gym-ref").length > 0){
 			$(".main-content").showallgyms("destroy");
 		}
+		if ($(".view-userhealthinfo-ref").length > 0){
+			$(".main-content").userhealthinfo("destroy");
+		}
+
 	};
 	$(".create-new-user").click(function() {
 		clearContainer();
@@ -207,6 +239,11 @@ $(document).ready(function(){
 		clearContainer();
 		$(".main-content").showallgyms();
 		hideActionsButtons();
+	});
+	$(".view-user-healthinfo").click(function() {
+		clearContainer();
+		$(".main-content").userhealthinfo();
+		addActionButtons("Show");
 	});
 
 });

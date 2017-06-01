@@ -3,6 +3,7 @@
  */
 package ps.nutriserve.service.orchestration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -15,6 +16,7 @@ import ps.nutriserve.model.Bmi;
 import ps.nutriserve.model.Gym;
 import ps.nutriserve.model.Health;
 import ps.nutriserve.model.Recipe;
+import ps.nutriserve.model.User;
 
 /**
  * @author rkhalayl
@@ -23,21 +25,62 @@ import ps.nutriserve.model.Recipe;
 public class HealthInfoImpl implements HealthInfo{
 
 	final static Logger logger = Logger.getLogger(HealthInfoImpl.class);
-	
+
 	/**
-	 * URIs for the exernal services to call
+	 * URIs for the external services to call
 	 */
 	public static String BASE_URL = "http://bzu-nutriserve.appspot.com";
 	public static String HEALTH_STATUS_URL = "/healthstatus?userid={id}";
 	public static String BMI_URL = "/bmi?weight={weight}&length={height}";
 	public static String RECIPE_URL = "/recipe";
 	public static String GYM_URL = "/gym";
-	
+	public static String USER_URL = "/user";
+
+	/**
+	 * Get user basic health info for the given employee
+	 * @param <T>
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public User getUserHealthInfo(String userId){
+		RestTemplate restTemplate = new RestTemplate();
+		
+		/*
+		 * This API collect data from more than one web services, so, it applies the services composition
+		 */
+		
+		// Get user Recipe
+		ResponseEntity<Recipe> rateResponse =
+		        restTemplate.exchange(BASE_URL + RECIPE_URL + "/" + userId, HttpMethod.GET, 
+		        		null, new ParameterizedTypeReference<Recipe>() {
+		            });
+		Recipe recipe = rateResponse.getBody();
+		logger.debug("RECIPE Info :" + recipe);
+		
+		// Get user info
+		ResponseEntity<User> userInfoResponse =
+		        restTemplate.exchange(BASE_URL + USER_URL + "/" + userId, HttpMethod.GET, 
+		        		null, new ParameterizedTypeReference<User>() {
+		            });
+		User user = userInfoResponse.getBody();
+		logger.debug("User Info :" + user);
+		
+		user.setRecipe(recipe);
+		
+		
+		// Get User health status info
+		Health healthInfo = restTemplate.getForObject(BASE_URL + HEALTH_STATUS_URL, Health.class, userId);
+		user.setHealth(healthInfo);
+		logger.debug("User Info :" + healthInfo);
+		
+		return user;
+	}
 	/**
 	 * Call an external service to get some health information about the employee
 	 */
 	@Override
-	public Health getEmployeeHealthInfo(String id) {
+	public Health getHealthInfo(String id) {
 		 RestTemplate restTemplate = new RestTemplate();
 		 
 		 Health healthInfo = restTemplate.getForObject(BASE_URL + HEALTH_STATUS_URL, Health.class, id);

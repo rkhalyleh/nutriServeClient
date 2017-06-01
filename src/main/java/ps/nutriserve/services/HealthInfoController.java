@@ -19,6 +19,7 @@ import ps.nutriserve.model.Bmi;
 import ps.nutriserve.model.Gym;
 import ps.nutriserve.model.Health;
 import ps.nutriserve.model.Recipe;
+import ps.nutriserve.model.User;
 import ps.nutriserve.service.orchestration.HealthInfo;
 
 /**
@@ -33,6 +34,27 @@ public class HealthInfoController {
 	
 	@Autowired
 	private HealthInfo healthInfo;
+	
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "Get the user health information",
+		    notes = "This API calls an external web service to get the user basic info, health status, "
+		    		+ "recipes information based on the user id",
+		    response = Health.class,
+		    responseContainer = "Entity")
+	@RequestMapping(value = "/userHealthInfo/{id}",
+		method = RequestMethod.GET)
+	public ResponseEntity<User> getUserHealthInfo(@PathVariable("id") String userId) {
+		
+		User user = healthInfo.getUserHealthInfo(userId);
+		
+		return new ResponseEntity<User>(user, HttpStatus.OK);		
+	}
+
 	
 	/**
 	 * 
@@ -102,7 +124,7 @@ public class HealthInfoController {
 		method = RequestMethod.GET)
 	public ResponseEntity<Health> getHealthStatus(@PathVariable("id") String id) {
 		
-		Health health = healthInfo.getEmployeeHealthInfo(id);
+		Health health = healthInfo.getHealthInfo(id);
 		
 		return new ResponseEntity<Health>(health, HttpStatus.OK);		
 	}
